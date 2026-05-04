@@ -1,40 +1,65 @@
-# SecureAuth - Backend
+# Secure Auth System — Backend
 
-Full-Stack Authentication System with JWT, bcrypt, and SQLite
+REST API for user authentication built with Node.js, Express, JWT, and SQLite.
 
-## 🎯 Features
+Part of a full-stack project — see the [React frontend](https://github.com/rrobertf/auth-app-frontend).
 
-- ✅ User Registration & Login
-- ✅ Password Hashing (bcrypt)
-- ✅ JWT Token Authentication
-- ✅ SQLite Database
-- ✅ CORS Support
-- ✅ Production Ready
+---
 
-## 🛠 Tech Stack
+## Stack
 
-- Node.js + Express
-- SQLite
-- JWT (jsonwebtoken)
-- bcryptjs
-- CORS
+- **Node.js** + Express 5
+- **SQLite** via better-sqlite3
+- **JWT** (jsonwebtoken) — 7-day token expiry
+- **bcryptjs** — password hashing with salt rounds
+- **dotenv** for environment config
 
-## 📦 Installation
+## Setup
 
 ```bash
 npm install
-npm run dev
+```
+
+Create a `.env` file:
+
+```
+JWT_SECRET=your_secret_here
+PORT=5001
+```
+
+Start the server:
+
+```bash
+npm run dev   # development (nodemon)
+npm start     # production
 ```
 
 Server runs on `http://localhost:5001`
 
-## 🔌 API Endpoints
+## API Endpoints
 
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-- `GET /api/auth/me` - Get user profile
-- `POST /api/auth/logout` - Logout user
+| Method | Route | Description |
+|--------|-------|-------------|
+| `POST` | `/api/auth/register` | Register a new user |
+| `POST` | `/api/auth/login` | Login and receive JWT |
+| `GET` | `/api/auth/me` | Verify token |
+| `GET` | `/api/auth/profile` | Get full user profile |
+| `POST` | `/api/auth/logout` | Logout (client-side token removal) |
 
-## ⚙️ Environment Variables
+Protected routes require:
+```
+Authorization: Bearer <token>
+```
 
-Create `.env`:
+## Database
+
+SQLite — auto-created on first run as `auth.db`.
+
+```sql
+users (id, username, email, password, role, created_at)
+```
+
+## Author
+
+**Roberto Feliciano** · CS Student · UIPR Ponce  
+[github.com/rrobertf](https://github.com/rrobertf)
